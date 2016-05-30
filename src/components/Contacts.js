@@ -1,31 +1,117 @@
 import React from 'react'
 import { Link } from 'react-router';
 module.exports = React.createClass({
+    getInitialState:function(){
+        return {
+            list:[
+                {
+                    id:1,
+                    isChecked:false,
+                    fullName:'邓超',
+                    send:'lijiew88@gmail.com',
+                    cellphone:'18946578965',
+                    packet:'A组',
+                },
+                {
+                    id:2,
+                    isChecked:false,
+                    fullName:'邓超',
+                    send:'lijiew88@gmail.com',
+                    cellphone:'18946578965',
+                    packet:'A组',
+                },
+                {
+                    id:3,
+                    isChecked:false,
+                    fullName:'邓超',
+                    send:'lijiew88@gmail.com',
+                    cellphone:'18946578965',
+                    packet:'A组',
+                },
+            ],
+            totalChecked:false,
+        };
+    },
+    toggleChecked: function(index) {
+        let list = this.state.list;
+        if(list[index].isChecked){
+            list[index].isChecked = false;
+            this.setState({
+                list:list,
+                totalChecked:false,
+            });
+        }else{
+            list[index].isChecked = true;
+            this.setState({
+                list:list,
+            });
+            for (var i = list.length - 1; i >= 0; i--) {
+                if(!list[i].isChecked){
+                    return;
+                }
+            }
+            this.setState({
+                totalChecked:true,
+            });
+        }
+    },
+    checkAll:function(){
+        let list = this.state.list;
+        if(this.state.totalChecked){
+            for(let i = 0; i < list.length; i++){
+                list[i].isChecked = false;
+            }
+            this.setState({
+                list:list,
+                totalChecked:false,
+            })
+        }else{
+            for(let i = 0; i < list.length; i++){
+                list[i].isChecked = true;
+            }
+            this.setState({
+                list:list,
+                totalChecked:true,
+            })
+        }
+    },
+    back:function(){
+        window.history.back(-1);
+    },
   render() {
     return(
     	<div role="tabpanel" className="tab-pane" id="stud">
     		<div className="check-div form-inline">
-    			<div className="col-xs-5">
-    				<input type="text" className=" form-control input-sm" placeholder="输入文字搜索" />
-    				<button className="btn btn-white btn-xs ">查 询 </button>
-    			</div>
-    			<div className="col-xs-4 col-lg-4  col-md-5" style={{paddingRight: '40px',textAlign: 'right',float: 'right'}}>
-    				<label htmlFor="daoru">导入人员信息表:&nbsp;</label>
-    				<button className="btn btn-white btn-xs " id="daoru">选取文件 </button>
-    				<button className="btn btn-white btn-xs ">导入 </button>
-    			</div>
-
+    			<div className="btn-toolbar" role="toolbar">
+                    <div className="btn-group">
+                      <button type="button" className="btn btn-default" onClick={this.back}><span className="glyphicon glyphicon-chevron-left"></span>返 回</button>
+                    </div>
+                    <div className="btn-group">
+                        <button type="button" className="btn btn-primary">
+                            <span className="glyphicon glyphicon-user"> </span> 新建联系人</button>
+                        <button type="button" className="btn btn-default">删 除</button>
+                        <button type="button" className="btn btn-default">更 多</button>
+                        <button type="button" className="btn btn-default">写 信</button>
+                        <button type="button" className="btn btn-default">移动到组</button>
+                    </div>
+                  </div>
     		</div>
     		<div className="data-div">
     			<div className="row tableHeader">
-    				<div className="col-xs-2 ">
-	    				<label aria-checked="false" className="nui-chk cS0" title="选中此邮件" onClick={this.toggleChecked}>
+    				<div className="col-xs-1 ">
+	    				<label aria-checked="false" className="nui-chk cS0" title="选中此邮件" onClick={this.checkAll}>
 	    				    <span className="nui-chk-symbol">
-	    				    <b className="nui-ico nui-ico-checkbox"  title="选中此邮件"></b>
+	    				    {(function(){
+                                if(this.state.totalChecked){
+                                    return <b className="nui-ico nui-ico-checkbox nui-ico-checkbox-checked"  title="选中此邮件"></b>;
+                                }else{
+                                    return <b className="nui-ico nui-ico-checkbox"  title="选中此邮件"></b>;
+                                }
+                            }.bind(this))()}
 	    				    </span>
 	    				</label>
     				</div>
-    				<div className="col-xs-2 ">
+    				<div className="col-xs-3 ">
     					姓名
     				</div>
     				<div className="col-xs-3">
@@ -39,90 +125,42 @@ module.exports = React.createClass({
     				</div>
     			</div>
     			<div className="tablebody">
-    				<div className="row">
-    					<div className="col-xs-2 ">
-		    				<label aria-checked="false" className="nui-chk cS0" title="选中此邮件" onClick={this.toggleChecked}>
-		    				    <span className="nui-chk-symbol">
-		    				    <b className="nui-ico nui-ico-checkbox"  title="选中此邮件"></b>
-		    				    </span>
-		    				</label>
-    					</div>
-    					<div className="col-xs-2">
-    						邓超
-    					</div>
-    					<div className="col-xs-3">
-    						lijiew88@gmail.com
-    					</div>
-    					<div className="col-xs-3">
-    						18665422595
-    					</div>
-    					<div className="col-xs-2">
-    						A
-    					</div>
-    				</div>
-    				<div className="row">
-    					<div className="col-xs-2 ">
-		    				<label aria-checked="false" className="nui-chk cS0" title="选中此邮件" onClick={this.toggleChecked}>
-		    				    <span className="nui-chk-symbol">
-		    				    <b className="nui-ico nui-ico-checkbox"  title="选中此邮件"></b>
-		    				    </span>
-		    				</label>
-    					</div>
-    					<div className="col-xs-2">
-    						邓超
-    					</div>
-    					<div className="col-xs-3">
-    						lijiew88@gmail.com
-    					</div>
-    					<div className="col-xs-3">
-    						18665422595
-    					</div>
-    					<div className="col-xs-2">
-    						A
-    					</div>
-    				</div>
-    				<div className="row">
-    					<div className="col-xs-2 ">
-		    				<label aria-checked="false" className="nui-chk cS0" title="选中此邮件" onClick={this.toggleChecked}>
-		    				    <span className="nui-chk-symbol">
-		    				    <b className="nui-ico nui-ico-checkbox"  title="选中此邮件"></b>
-		    				    </span>
-		    				</label>
-    					</div>
-    					<div className="col-xs-2">
-    						邓超
-    					</div>
-    					<div className="col-xs-3">
-    						lijiew88@gmail.com
-    					</div>
-    					<div className="col-xs-3">
-    						18665422595
-    					</div>
-    					<div className="col-xs-2">
-    						A
-    					</div>
-    				</div>
-    				<div className="row">
-    					<div className="col-xs-2 ">
-		    				<label aria-checked="false" className="nui-chk cS0" title="选中此邮件" onClick={this.toggleChecked}>
-		    				    <span className="nui-chk-symbol">
-		    				    <b className="nui-ico nui-ico-checkbox"  title="选中此邮件"></b>
-		    				    </span>
-		    				</label>
-    					</div>
-    					<div className="col-xs-2">
-    						邓超
-    					</div>
-    					<div className="col-xs-3">
-    						lijiew88@gmail.com
-    					</div>
-    					<div className="col-xs-3">
-    						18665422595
-    					</div>
-    					<div className="col-xs-2">
-    						A
-    					</div>
-    				</div>
+                    {(function(){
+                            let result = [];
+                            for(let i = 0; i < this.state.list.length; i++){
+                                result.push(
+                                    <div className="row" key={i}>
+                                        <div className="col-xs-1 ">
+                                            <label aria-checked="false" className="nui-chk cS0" title="选中此邮件" onClick={this.toggleChecked.bind(null, i)}>
+                                                <span className="nui-chk-symbol">
+                                                {(function(){
+                                                    if(this.state.list[i].isChecked){
+                                                        return <b className="nui-ico nui-ico-checkbox nui-ico-checkbox-checked"  title="选中此邮件"></b>
+
+                                                    }else{
+                                                        return <b className="nui-ico nui-ico-checkbox"  title="选中此邮件"></b>
+                                                    }
+                                            }.bind(this))()}
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div className="col-xs-3">
+                                            {this.state.list[i].fullName}
+                                        </div>
+                                        <div className="col-xs-3">
+                                            {this.state.list[i].send}
+                                        </div>
+                                        <div className="col-xs-3">
+                                            {this.state.list[i].cellphone}
+                                        </div>
+                                        <div className="col-xs-2">
+                                            {this.state.list[i].packet}
+                                        </div>
+                                    </div>
+                                );
+                            }
+                            return result;
+                        }.bind(this))()}
     			</div>
 
     		</div>

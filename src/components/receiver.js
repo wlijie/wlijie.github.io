@@ -15,22 +15,22 @@ module.exports = React.createClass({
             <div role="tabpanel" className="tab-pane active" id="sour">
               <div className="check-div form-inline">
                 <div className="btn-toolbar" role="toolbar">
-                            <div className="btn-group">
-                              <button type="button" className="btn btn-default" onClick={this.back}><span className="glyphicon glyphicon-chevron-left"></span>返 回</button>
-                            </div>
-                            <div className="btn-group">
-                              <button type="button" className="btn btn-success">发 送</button>
-                            </div>
-                            <div className="btn-group">
-                              <button type="button" className="btn btn-default">预 览</button>
-                            </div>
-                            <div className="btn-group">
-                             <button type="button" className="btn btn-default">存草稿</button>
-                            </div>
-                            <div className="btn-group">
-                             <button type="button" className="btn btn-default">取 消</button>
-                            </div>
-                          </div>
+                    <div className="btn-group">
+                      <button type="button" className="btn btn-default" onClick={this.back}><span className="glyphicon glyphicon-chevron-left"></span>返 回</button>
+                    </div>
+                    <div className="btn-group">
+                      <button type="button" className="btn btn-success">发 送</button>
+                    </div>
+                    <div className="btn-group">
+                      <button type="button" className="btn btn-default">预 览</button>
+                    </div>
+                    <div className="btn-group">
+                     <button type="button" className="btn btn-default">存草稿</button>
+                    </div>
+                    <div className="btn-group">
+                     <button type="button" className="btn btn-default">取 消</button>
+                    </div>
+                  </div>
               </div>
               <div className="data-div">
                 <div className="tablebodyH">
@@ -44,10 +44,10 @@ module.exports = React.createClass({
                         <div className="dG0">
                           <div className="bz0">
                             <div id="_mail_emailhide_1_2451" className="js-component-emailhide nui-fGetout">
-                              <input tabIndex="-1" role="presentation" type="text" /></div>
+                              <input tabIndex="-1" role="presentation" className="nui-ipt-input" type="text" /></div>
                             <div id="_mail_emailcontainer_1_2438" className="js-component-emailcontainer nui-multiLineIpt C-multiLineIpt nui-ipt" unselectable="on">
                               <div id="_mail_emailinput_1_2439" className="js-component-emailinput nui-addr nui-editableAddr nui-editableAddr-edit">
-                                <input className="nui-editableAddr-ipt" type="text" tabIndex="1" />
+                                <input className="nui-editableAddr-ipt nui-ipt-input" type="text" tabIndex="1" />
                                 <span className="nui-editableAddr-txt">W</span>
                               </div>
                             </div>

@@ -17,20 +17,20 @@ module.exports= React.createClass({
     			<div role="tabpanel" className="tab-pane active" id="sour">
     				<div className="check-div form-inline">
     					<div className="btn-toolbar" role="toolbar">
-                          <div className="btn-group">
-                          <button type="button" className="btn btn-default" onClick={this.back}><span className="glyphicon glyphicon-chevron-left"></span>返 回</button>
-                         	</div>
-                          <div className="btn-group">
-                          <button type="button" className="btn btn-default">回复</button>
-                          <button type="button" className="btn btn-default">回复全部</button>
-                          <button type="button" className="btn btn-default">转发</button>
-                          </div>
-                          <div className="btn-group">
-                          <button type="button" className="btn btn-default">删除</button>
-                          <button type="button" className="btn btn-default">举报</button>
-                          <button type="button" className="btn btn-default">标记为</button>
-                          </div>
-                        </div>
+                    <div className="btn-group">
+                      <button type="button" className="btn btn-default" onClick={this.back}><span className="glyphicon glyphicon-chevron-left"></span>返 回</button>
+                   	</div>
+                    <div className="btn-group">
+                      <button type="button" className="btn btn-default">回复</button>
+                      <button type="button" className="btn btn-default">回复全部</button>
+                      <button type="button" className="btn btn-default">转发</button>
+                    </div>
+                    <div className="btn-group">
+                      <button type="button" className="btn btn-default">删除</button>
+                      <button type="button" className="btn btn-default">举报</button>
+                      <button type="button" className="btn btn-default">标记为</button>
+                  </div>
+                </div>
     				</div>
     				<div className="data-div">
     					<div className="tablebodyH">

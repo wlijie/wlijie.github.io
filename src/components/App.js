@@ -19,7 +19,7 @@ module.exports  = React.createClass({
 		      		</p>
 		      	</div>
 	            <div><IndexLink  activeClassName={"meun-item-active"} className="meun-item" to="/" ><img src="./src/images/icon_source.png" />首页</IndexLink></div>
-	            <div><Link activeClassName={"meun-item-active"} className="meun-item" to="/write_letter"><img src="./src/images/icon_chara_grey.png" />收信</Link></div>
+	            <div><Link activeClassName={"meun-item-active"} className="meun-item" to="/letter"><img src="./src/images/icon_chara_grey.png" />收信</Link></div>
 	            <div><Link activeClassName={"meun-item-active"} className="meun-item" to="/receiver"><img src="./src/images/icon_user_grey.png" />写信</Link></div>
 	            <div><Link activeClassName={"meun-item-active"} className="meun-item" to="/contacts"><img src="./src/images/icon_house_grey.png" />通讯录</Link></div>
 	            <div><Link activeClassName={"meun-item-active"} className="meun-item" to="/internal_announcement"><img src="./src/images/icon_change_grey.png" />内部公告</Link></div>
