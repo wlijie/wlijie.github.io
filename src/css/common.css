@@ -500,10 +500,6 @@ select {
     margin-top: 7px;
     overflow: hidden;
 }
-.dG0 .nui-editableAddr-ipt {
-    top: 20px;
-    left: 2px;
-}
 input[type=text] {
     -webkit-appearance: none;
 }
@@ -568,4 +564,16 @@ input[type=text] {
 }
 .dG0 .nui-ipt-input {
     width: 100%;
+}
+.ipt-s{
+	position: relative;
+}
+.ipt-box span{
+	margin: 0 5px;
+	padding: 0 5px;
+	border-radius: 5px;
+	display: inline-block;
+}
+.ipt-box span:last-child{
+	margin: 0 0 0 5px;
 }
