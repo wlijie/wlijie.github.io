@@ -3,23 +3,63 @@ import { Link } from 'react-router';
 
 
 
-module.exports = React.createClass({
+var Buttons=React.createClass({
+  back:function(){
+    this.props.back();
+  },
+  render (){
+    return (
+      <div className="check-div form-inline">
+        <div className="btn-toolbar" role="toolbar">
+            <div className="btn-group">
+              <button type="button" className="btn btn-default" onClick={this.back}><span className="glyphicon glyphicon-chevron-left"></span>返 回</button>
+            </div>
+            <div className="btn-group">
+              <button type="button" className="btn btn-success">发 送</button>
+            </div>
+            <div className="btn-group">
+              <button type="button" className="btn btn-default">预 览</button>
+            </div>
+            <div className="btn-group">
+              <button type="button" className="btn btn-default">存草稿</button>
+            </div>
+            <div className="btn-group">
+              <button type="button" className="btn btn-default">取 消</button>
+            </div>
+        </div>
+      </div>
+    );
+  }
+});
+var Addressee=React.createClass({
   getInitialState:function(){
     return {
       data:[],
       totalChecked:false,
       placeholder:'WW',
+      contactsList:this.props.contactsList,
     };
   },
   getsFocus: function(){
     this.refs.filterTextInput.focus();
-    console.log(this.refs.filterTextInput.value)
   },
   iptEnter: function(event){
     this.setState({
-      placeholder:event.target.value+"WWW"
+      placeholder:event.target.value+"WW"
     })
-    
+  },
+  focusEvents: function(event){
+    //获取焦点
+    this.setState({
+      totalChecked:true
+    })
+    console.log(this.state.contactsList)
+  },
+  losesFocus: function(){
+    //失去焦点
+    this.setState({
+      totalChecked:false,
+    })
   },
   keyCodea: function(event){
     var data=this.state.data;
@@ -49,6 +89,123 @@ module.exports = React.createClass({
       })
     }
   },
+  render (){
+    var rows = [];
+    var lastCategory = null;
+    this.state.contactsList.forEach(function(product,i) {
+      rows.push(<tr key={i}><td>{product.email}</td></tr>)
+    }.bind(this));
+    return (
+      <div className={this.state.totalChecked ? "kZ0 fu0 iu2" :"kZ0 fu0"}>
+        <label className="fn0">
+          <a href="javascript:void(0)" className="nui-txt-link">收件人</a>
+          ：
+        </label>
+        <div className="table-responsive pull-left">
+            <table className="table table-bordered table-hover">
+               <tbody>
+                  {rows}
+               </tbody>
+            </table>
+        </div>
+        <div className="dG0">
+          <div className="bz0" onClick={this.getsFocus}>
+            <div className=" C-multiLineIpt nui-ipt">
+              <div className=" nui-editableAddr nui-editableAddr-edit">
+                <div className="ipt-box pull-left">
+                  {
+                    (function(){
+                      var rows=[]
+                      for (var i = 0;i < this.state.data.length;  i++ ) {
+                        rows.push(
+                              <span className="bg-success" key={this.state.data[i].id}>{this.state.data[i].send}</span>
+                        )
+                      }
+                      return rows;
+                    }.bind(this))()
+                  }
+                </div>
+                <div className="ipt-s pull-left">
+                  <input 
+                    className="nui-editableAddr-ipt nui-ipt-input" 
+                    type="text" 
+                    onInput={this.iptEnter} 
+                    onKeyDown={this.keyCodea}
+                    onFocus={this.focusEvents}
+                    onBlur={this.losesFocus}
+                    ref="filterTextInput"/>
+                  <span className="nui-editableAddr-txt">{this.state.placeholder}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+var Theme=React.createClass({
+  getInitialState:function(){
+    return {
+      data:[],
+      totalChecked:false,
+    };
+  },
+  focusEvents: function(event){
+    //获取焦点 
+    this.setState({
+      totalChecked:true
+    })
+  },
+  losesFocus: function(){
+    //失去焦点
+    this.setState({
+      totalChecked:false,
+    })
+  },
+  render (){
+    return (
+      <div className={this.state.totalChecked ? "kZ0 fu0 iu2" :"kZ0 fu0"}>
+        <label className="fn0">
+          <span className="cr1">主　题</span>
+          <span>：</span>
+        </label>
+        <div className="dG0">
+          <div className="bz0">
+            <div className="js-component-input nui-ipt">
+              <input className="nui-ipt-input" type="text" 
+                onFocus={this.focusEvents}
+                onBlur={this.losesFocus}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+var EditingArea=React.createClass({
+  render (){
+    return (
+      <div className="data-div">
+        <div className="tablebodyH">
+          <div className="row">
+             <div className="qa0">
+              <Addressee 
+                contactsList={this.props.contactsList}
+              />
+              <Theme />
+             </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+module.exports = React.createClass({
+
   back:function(){
     window.history.back(-1);
   },
@@ -60,87 +217,29 @@ module.exports = React.createClass({
           </a>
           <div className="tab-content">
             <div role="tabpanel" className="tab-pane active" id="sour">
-              <div className="check-div form-inline">
-                <div className="btn-toolbar" role="toolbar">
-                    <div className="btn-group">
-                      <button type="button" className="btn btn-default" onClick={this.back}><span className="glyphicon glyphicon-chevron-left"></span>返 回</button>
-                    </div>
-                    <div className="btn-group">
-                      <button type="button" className="btn btn-success">发 送</button>
-                    </div>
-                    <div className="btn-group">
-                      <button type="button" className="btn btn-default">预 览</button>
-                    </div>
-                    <div className="btn-group">
-                     <button type="button" className="btn btn-default">存草稿</button>
-                    </div>
-                    <div className="btn-group">
-                     <button type="button" className="btn btn-default">取 消</button>
-                    </div>
-                  </div>
-              </div>
-              <div className="data-div">
-                <div className="tablebodyH">
-                  <div className="row">
-                     <div id="1464493369741_header" className="qa0">
-                        <div id="1464493369741_to" className="kZ0 eB0">
-                          <label className="fn0">
-                            <a id="_mail_link_109_2437" href="javascript:void(0)" className=" js-component-link nui-txt-link">收件人</a>
-                            ：
-                          </label>
-                          <div className="dG0">
-                            <div className="bz0">
-                              <div id="_mail_emailcontainer_1_2438" className="js-component-emailcontainer nui-multiLineIpt C-multiLineIpt nui-ipt" unselectable="on">
-                                <div id="_mail_emailinput_1_2439" className="js-component-emailinput nui-addr nui-editableAddr nui-editableAddr-edit" onClick={this.getsFocus}>
-                                  <div id="ipt-box" className="ipt-box pull-left">
-                                    {
-                                      (function(){
-                                        var rows=[]
-                                        for (var i = 0;i < this.state.data.length;  i++ ) {
-                                          rows.push(
-                                                <span className="bg-success" key={this.state.data[i].id}>{this.state.data[i].send}</span>
-                                          )
-                                        }
-                                        return rows;
-                                      }.bind(this))()
-                                    }
-                                  </div>
-                                   <div id="ipt-s" className="ipt-s pull-left">
-                                    <input 
-                                      className="nui-editableAddr-ipt nui-ipt-input" 
-                                      type="text" tabIndex="1" 
-                                      onInput={this.iptEnter} 
-                                      onKeyDown={this.keyCodea} 
-                                      ref="filterTextInput"/>
-                                    <span className="nui-editableAddr-txt">{this.state.placeholder}</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="gH1"></div>
-                        </div>
-                      <div id="1464493369741_subject" className="kZ0 fu0">
-                        <label className="fn0">
-                          <span className="cr1">主　题</span>
-                          ：
-                        </label>
-                        <div className="dG0">
-                          <div className="bz0">
-                            <div id="_mail_input_13_2440" className="js-component-input nui-ipt">
-                              <input className="nui-ipt-input" type="text" x-webkit-speech="" tabIndex="1" maxLength="256" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="gH1"></div>
-                      </div>
-                     </div>
-                  </div>
-                </div>
-              </div>
+              <Buttons back={this.back}/>
+              <EditingArea contactsList={ContactsList}/>
             </div>
           </div>
         </div>
     );
   }
 })
+var ContactsList=[
+  {
+    name:'wangxuan',
+    email:'asdfasd@qq.com',
+  },
+  {
+    name:'zhangsan',
+    email:'zhangsan@qq.com',
+  },
+  {
+    name:'lisi',
+    email:'lisi@qq.com',
+  },
+  {
+    name:'xiaoming',
+    email:'xiaoming@qq.com',
+  }
+]
