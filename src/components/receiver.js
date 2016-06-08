@@ -48,7 +48,7 @@ var Addressee=React.createClass({
     var top=parseInt(this.refs.positionBox.offsetTop)+25;
     var left=parseInt(this.refs.positionBox.offsetLeft)+60;
     this.setState({
-      placeholder:event.target.filterTextInput+"WW",
+      placeholder:event.target.value+"WW",
       top:top,
       left:left,
       hideSwitch:true,
@@ -86,6 +86,7 @@ var Addressee=React.createClass({
   keyCodea: function(event){
     var data=this.state.data;
     var timeb=new Date().getTime();
+    var index=0;
     var value=event.target.value;
     if (event.keyCode==13){
       var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
@@ -111,23 +112,40 @@ var Addressee=React.createClass({
         data:data
       })
     }
+    if(event.keyCode==38){
+      console.log("按了向上键")
+      var contactsList=this.state.contactsList;
+      contactsList.index++;
+      console.log(contactsList.index)
+      contactsList["index"]=contactsList.index;
+      this.setState({
+        contactsList:contactsList
+      })
+    }else if(event.keyCode==40){
+      console.log("按了向下键")
+    }
+    console.log(this.state.hideSwitch)
   },
   render (){
-    var hideSwitch=this.state.hideSwitch ? "block" : "none"
+    var hideSwitch=this.state.hideSwitch;
+    var rows = [];
+    var lastCategory = null;
+    this.state.contactsList.list.forEach(function(product,i) {
+      if(product.email.indexOf(this.state.matchList)===-1){
+        return;
+      }
+      if(this.state.contactsList.index==i){
+        rows.push(<tr key={i}><td className="aaa" onClick={this.clickEvent}>{product.email}</td></tr>)
+        return;
+      }
+      rows.push(<tr key={i}><td onClick={this.clickEvent}>{product.email}</td></tr>)
+    }.bind(this));
+    var hideSwitch=hideSwitch ? "block" : "none"
     var stylePos={
       left:this.state.left,
       top:this.state.top,
       display:hideSwitch,
     }
-    var rows = [];
-    var lastCategory = null;
-    this.state.contactsList.forEach(function(product,i) {
-      if(product.email.indexOf(this.state.matchList)===-1){
-        return;
-      }
-      rows.push(<tr key={i}><td onClick={this.clickEvent}>{product.email}</td></tr>)
-
-    }.bind(this));
     return (
       <div className={this.state.totalChecked ? "kZ0 fu0 iu2" :"kZ0 fu0"}>
         <label className="fn0">
@@ -159,7 +177,7 @@ var Addressee=React.createClass({
                   }
                 </div>
                 <div className="ipt-s pull-left" ref="positionBox">
-                  <input 
+                  <input  
                     className="nui-editableAddr-ipt nui-ipt-input" 
                     type="text" 
                     onInput={this.iptEnter} 
@@ -258,7 +276,8 @@ module.exports = React.createClass({
     );
   }
 })
-var ContactsList=[
+var ContactsList={
+  list:[
   {
     name:'wangxuan',
     email:'asdfasd@qq.com',
@@ -274,5 +293,6 @@ var ContactsList=[
   {
     name:'xiaoming',
     email:'xiaoming@qq.com',
-  }
-]
+  }],
+  "index":0,
+}
