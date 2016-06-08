@@ -90,7 +90,7 @@ input[type=text]{-webkit-appearance:none}
 .nui-editableAddr-txt{visibility:hidden}
 .nui-dateLayer-calendar b,.nui-txt-cLink,.nui-txt-link{color:#0F6099!important}
 .fu0 .dG0 .nui-ipt{padding:15px 2px 0}
-.fu0{height:39px}
+.fu0{height:39px;}
 .cr1{padding:2px 4px 4px}
 .fu0 .nui-ipt-input{font-size:14px;font-weight:700}
 .dG0 .nui-ipt-input{width:100%}
@@ -98,3 +98,5 @@ input[type=text]{-webkit-appearance:none}
 .ipt-box span{margin:0 5px 0 0;padding:0 5px;border-radius:5px;display:inline-block}
 .contact-list{position: absolute;}
 .iu2{border-color: #4188c3 !important}
+.pull-abs{position: absolute;z-index: 9999;}
+.table{background: #fff;z-index: 9999;}

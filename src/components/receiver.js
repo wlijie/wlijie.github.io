@@ -38,14 +38,21 @@ var Addressee=React.createClass({
       totalChecked:false,
       placeholder:'WW',
       contactsList:this.props.contactsList,
+      hideSwitch:false
     };
   },
   getsFocus: function(){
     this.refs.filterTextInput.focus();
   },
   iptEnter: function(event){
+    var top=parseInt(this.refs.positionBox.offsetTop)+25;
+    var left=parseInt(this.refs.positionBox.offsetLeft)+60;
     this.setState({
-      placeholder:event.target.value+"WW"
+      placeholder:event.target.filterTextInput+"WW",
+      top:top,
+      left:left,
+      hideSwitch:true,
+      matchList:event.target.value
     })
   },
   focusEvents: function(event){
@@ -60,6 +67,21 @@ var Addressee=React.createClass({
     this.setState({
       totalChecked:false,
     })
+  },
+  clickEvent: function(event){
+    var data=this.state.data;
+    var timeb=new Date().getTime();
+    var value=event.currentTarget.innerHTML;
+    var newSend={
+        id:timeb,
+        send:value,
+    }
+    data.push(newSend);
+    this.setState({
+      data:data,
+      hideSwitch:false,
+    })
+    this.refs.filterTextInput.value=''
   },
   keyCodea: function(event){
     var data=this.state.data;
@@ -80,6 +102,7 @@ var Addressee=React.createClass({
       this.setState({
         data:data,
         placeholder:'WW',
+        hideSwitch:false,
       })
     };
     if(event.keyCode==8 && !value.length){
@@ -90,10 +113,20 @@ var Addressee=React.createClass({
     }
   },
   render (){
+    var hideSwitch=this.state.hideSwitch ? "block" : "none"
+    var stylePos={
+      left:this.state.left,
+      top:this.state.top,
+      display:hideSwitch,
+    }
     var rows = [];
     var lastCategory = null;
     this.state.contactsList.forEach(function(product,i) {
-      rows.push(<tr key={i}><td>{product.email}</td></tr>)
+      if(product.email.indexOf(this.state.matchList)===-1){
+        return;
+      }
+      rows.push(<tr key={i}><td onClick={this.clickEvent}>{product.email}</td></tr>)
+
     }.bind(this));
     return (
       <div className={this.state.totalChecked ? "kZ0 fu0 iu2" :"kZ0 fu0"}>
@@ -101,7 +134,7 @@ var Addressee=React.createClass({
           <a href="javascript:void(0)" className="nui-txt-link">收件人</a>
           ：
         </label>
-        <div className="table-responsive pull-left">
+        <div className="table-responsive pull-abs" style={stylePos}>
             <table className="table table-bordered table-hover">
                <tbody>
                   {rows}
@@ -125,7 +158,7 @@ var Addressee=React.createClass({
                     }.bind(this))()
                   }
                 </div>
-                <div className="ipt-s pull-left">
+                <div className="ipt-s pull-left" ref="positionBox">
                   <input 
                     className="nui-editableAddr-ipt nui-ipt-input" 
                     type="text" 
